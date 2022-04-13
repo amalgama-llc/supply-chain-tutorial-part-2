@@ -5,13 +5,13 @@ This repository contains the source code for the [Step 2 in the Amalgama Platfor
 
 The application simulates the functionality of a simple supply chain.
 A set of experiments is run to find the optimal number of trucks to move cargo among warehouses and stores.
-Truck move within a road network.
+Trucks move within a road network.
 
 ## How to build and run
 
 1. Clone the repository to your local machine.
 1. [Get access](https://platform.amalgamasimulation.com/amalgama/quick_start_access.html) to the Amalgama Platform libraries.
-1. Install and configure Eclipse IDE.
+1. [Install and configure](https://platform.amalgamasimulation.com/amalgama/quick_start_eclipse.html) Eclipse IDE.
 1. Open the project in Eclipse. [Download and add external libraries](https://platform.amalgamasimulation.com/amalgama/quick_start_console.html#_external_libraries) to the project:
     * com.amalgamasimulation.utils
     * com.amalgamasimulation.engine
