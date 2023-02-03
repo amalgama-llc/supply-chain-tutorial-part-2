@@ -50,10 +50,6 @@ public class Scenario {
     return maxDeliveryTimeHrs;
   }
 
-  public double[] getRouteLengthDistribution() {
-    return new double[] {20.0, 30.0, 40.0};
-  }
-
   public LocalDateTime getSimulationStartDt() {
     return simulationStartDt;
   }
