@@ -1,0 +1,79 @@
+{
+  "beginDate": "2023-02-02",
+  "endDate": "2023-04-10",
+  "truckSpeed": 40.0,
+  "intervalBetweenRequestHrs": 1,
+  "maxDeliveryTimeHrs": 3,
+  "trucks": [
+    { "id": 1, "name": "Truck 1", "node": 1 },
+    { "id": 2, "name": "Truck 2", "node": 1 },
+    { "id": 3, "name": "Truck 3", "node": 1 },
+    { "id": 4, "name": "Truck 4", "node": 1 },
+    { "id": 5, "name": "Truck 4", "node": 1 },
+    { "id": 6, "name": "Truck 4", "node": 1 }
+  ],
+  "nodes": [
+    {
+      "id": 1,
+      "y": 20,
+      "x": 20
+    },
+    {
+      "id": 2,
+      "y": -20,
+      "x": 20
+    },
+    {
+      "id": 3,
+      "y": -20,
+      "x": -20
+    },
+    {
+      "id": 4,
+      "y": 20,
+      "x": -20
+    }
+  ],
+  "arcs": [
+    {
+      "source": 1,
+      "dest": 2
+    },
+    {
+      "source": 2,
+      "dest": 3
+    },
+    {
+      "source": 3,
+      "dest": 4
+    },
+    {
+      "source": 4,
+      "dest": 1
+    }
+  ],
+  "warehouses": [
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "node": 1
+    }
+  ],
+  "stores": [
+    {
+      "id": 1,
+      "name": "Store A",
+      "node": 2
+    },
+    {
+      "id": 2,
+      "name": "Store B",
+      "node": 3
+    },
+    {
+      "id": 3,
+      "name": "Store C",
+      "node": 4
+    }
+  ]
+}

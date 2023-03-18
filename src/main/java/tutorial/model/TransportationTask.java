@@ -5,11 +5,13 @@ import com.amalgamasimulation.engine.Engine;
 import com.amalgamasimulation.graphagent.GraphAgentPosition;
 
 public class TransportationTask {
+
   private final String id;
   private final Truck truck;
   private final TransportationRequest request;
   private final Consumer<Truck> truckReleaseHandler;
   private final Engine engine;
+
   private double beginTime;
 
   public TransportationTask(String id, Truck truck, TransportationRequest request,
@@ -44,7 +46,8 @@ public class TransportationTask {
   }
 
   private void onDestinationReached(Truck truck, GraphAgentPosition<Node, Arc> destPosition) {
-    boolean truckIsAtSourceNode = destPosition.getNode().getValue().equals(request.getSourceAsset().getNode());
+    boolean truckIsAtSourceNode = destPosition.getNode().getValue()
+        .equals(request.getSourceAsset().getNode());
     if (truckIsAtSourceNode) {
       truck.moveTo(request.getDestAsset().getNode(), truck.getSpeed());
     } else {

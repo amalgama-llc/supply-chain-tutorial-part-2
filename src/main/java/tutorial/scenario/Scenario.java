@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Scenario {
-  private final int truckCount;
+
   private final double truckSpeed;
-  private final double intervalBetweenRequests;
+  private final double intervalBetweenRequestsHrs;
   private final double maxDeliveryTimeHrs;
   private final LocalDateTime simulationStartDt;
   private final LocalDateTime simulationEndDt;
@@ -14,17 +14,18 @@ public class Scenario {
   private final List<Arc> arcs;
   private final List<Warehouse> warehouses;
   private final List<Store> stores;
+  private final List<Truck> trucks;
 
-  public Scenario(int truckCount,
+  public Scenario(List<Truck> trucks,
       double truckSpeed,
-      double intervalBetweenRequests,
+      double intervalBetweenRequestsHrs,
       double maxDeliveryTimeHrs,
       List<Node> nodes, List<Arc> arcs,
       List<Warehouse> warehouses, List<Store> stores,
       LocalDateTime simulationStartDt, LocalDateTime simulationEndDt) {
-    this.truckCount = truckCount;
+    this.trucks = trucks;
     this.truckSpeed = truckSpeed;
-    this.intervalBetweenRequests = intervalBetweenRequests;
+    this.intervalBetweenRequestsHrs = intervalBetweenRequestsHrs;
     this.maxDeliveryTimeHrs = maxDeliveryTimeHrs;
     this.simulationStartDt = simulationStartDt;
     this.simulationEndDt = simulationEndDt;
@@ -34,16 +35,12 @@ public class Scenario {
     this.stores = stores;
   }
 
-  public int getTruckCount() {
-    return truckCount;
-  }
-
   public double getTruckSpeed() {
     return truckSpeed;
   }
 
-  public double getIntervalBetweenRequests() {
-    return intervalBetweenRequests;
+  public double getIntervalBetweenRequestsHrs() {
+    return intervalBetweenRequestsHrs;
   }
 
   public double getMaxDeliveryTimeHrs() {
@@ -56,6 +53,10 @@ public class Scenario {
 
   public LocalDateTime getSimulationEndDt() {
     return simulationEndDt;
+  }
+
+  public List<Truck> getTrucks() {
+    return trucks;
   }
 
   public List<Node> getNodes() {

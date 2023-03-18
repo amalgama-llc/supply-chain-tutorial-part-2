@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.amalgamasimulation.engine.Engine;
 
 public class Dispatcher {
+
   private final Engine engine;
   private final Model model;
   private int lastTaskId = 0;
@@ -31,7 +32,8 @@ public class Dispatcher {
   }
 
   private void startTransportation(Truck truck, TransportationRequest request) {
-    TransportationTask task = new TransportationTask("Task_" + (++lastTaskId), truck, request, this::onTruckRelease, engine);
+    TransportationTask task = new TransportationTask("Task_" + (++lastTaskId), truck, request,
+        this::onTruckRelease, engine);
     transportationTasks.add(task);
     task.execute();
   }

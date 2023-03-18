@@ -3,6 +3,7 @@ package tutorial.scenario;
 import java.util.List;
 
 public class Arc {
+
   private final Node source;
   private final Node dest;
   private List<Point> points;

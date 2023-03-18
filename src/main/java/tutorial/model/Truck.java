@@ -11,26 +11,28 @@ import com.amalgamasimulation.graphagent.GraphAgent;
 import com.amalgamasimulation.graphagent.GraphAgentPosition;
 
 public class Truck extends GraphAgent<Node, Arc> {
+
   private final double OWNERSHIP_COST_PER_HOUR = 10;
   private final double USAGE_COST_PER_HOUR = 25;
 
-  private final String id;
+  private final int id;
   private final String name;
   private final double speed;
   private List<Pair<Double, Double>> activePeriods = new ArrayList<>();
   private Optional<Double> currentActivePeriodStartTime = Optional.empty();
   private TransportationTask currentTask;
   private List<TransportationTask> taskHistory = new ArrayList<>();
+
   private BiConsumer<Truck, GraphAgentPosition<Node, Arc>> destinationReachedHandler;
 
-  public Truck(String id, String name, double speed, Engine engine) {
+  public Truck(int id, String name, double speed, Engine engine) {
     super(engine);
     this.id = id;
     this.name = name;
     this.speed = speed;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
@@ -57,7 +59,8 @@ public class Truck extends GraphAgent<Node, Arc> {
   public double getExpenses() {
     double ownershipDurationHours = engine.time() / engine.hour();
     double usageDurationHours = getAllActivePeriodsDurationHrs();
-    return ownershipDurationHours * OWNERSHIP_COST_PER_HOUR + usageDurationHours * USAGE_COST_PER_HOUR;
+    return ownershipDurationHours * OWNERSHIP_COST_PER_HOUR
+        + usageDurationHours * USAGE_COST_PER_HOUR;
   }
 
   private double getAllActivePeriodsDurationHrs() {

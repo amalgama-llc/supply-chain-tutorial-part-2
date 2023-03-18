@@ -1,19 +1,20 @@
 package tutorial.scenario;
 
 public class Point {
-  private final double latitude;
-  private final double longitude;
 
-  public Point(double latitude, double longitude) {
-    this.latitude = latitude;
-    this.longitude = longitude;
+  private final double y;
+  private final double x;
+
+  public Point(double y, double x) {
+    this.y = y;
+    this.x = x;
   }
 
   public double getLatitude() {
-    return latitude;
+    return y;
   }
 
   public double getLongitude() {
-    return longitude;
+    return x;
   }
 }

@@ -34,15 +34,22 @@
     <dependency>
       <groupId>com.amalgamasimulation</groupId>
       <artifactId>com.amalgamasimulation.graphagent</artifactId>
-      <version>1.8.1</version>
+      <version>1.8.2</version>
     </dependency>
 
-	<!-- Testing -->
+    <!-- Testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.9.2</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- JSON -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20180130</version>
     </dependency>
   </dependencies>
 

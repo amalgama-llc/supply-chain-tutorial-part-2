@@ -1,6 +1,7 @@
 package tutorial.model;
 
 public abstract class Asset {
+
   private final Node node;
   private final String name;
 

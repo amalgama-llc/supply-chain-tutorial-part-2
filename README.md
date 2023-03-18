@@ -16,18 +16,15 @@ Trucks move within a road network.
 
 This gets printed to the console:
 
-> Trucks count:	11	SL:	2,18%	Expenses:	\$ 285 808,12	Expenses/SL:	$ 131 254,66  
-Trucks count:	12	SL:	2,48%	Expenses:	\$ 311 702,15	Expenses/SL:	$ 125 650,60  
-Trucks count:	13	SL:	2,87%	Expenses:	\$ 337 571,06	Expenses/SL:	$ 117 760,37  
-Trucks count:	14	SL:	3,61%	Expenses:	\$ 363 412,19	Expenses/SL:	$ 100 645,76  
-Trucks count:	15	SL:	5,46%	Expenses:	\$ 389 242,92	Expenses/SL:	$ 71 321,88  
-Trucks count:	16	SL:	10,06%	Expenses:	\$ 415 071,85	Expenses/SL:	$ 41 257,01  
-Trucks count:	17	SL:	56,13%	Expenses:	\$ 440 870,43	Expenses/SL:	$ 7 854,02  
-Trucks count:	18	SL:	100,00%	Expenses:	\$ 449 053,67	Expenses/SL:	$ 4 490,54  
-Trucks count:	19	SL:	100,00%	Expenses:	\$ 458 407,33	Expenses/SL:	$ 4 584,07  
-Trucks count:	20	SL:	100,00%	Expenses:	\$ 464 122,53	Expenses/SL:	$ 4 641,23  
-Trucks count:	21	SL:	100,00%	Expenses:	\$ 471 980,74	Expenses/SL:	$ 4 719,81  
-Trucks count:	22	SL:	100,00%	Expenses:	\$ 479 990,81	Expenses/SL:	$ 4 799,91  
-Trucks count:	23	SL:	100,00%	Expenses:	\$ 487 510,12	Expenses/SL:	$ 4 875,10  
-Trucks count:	24	SL:	100,00%	Expenses:	\$ 493 083,41	Expenses/SL:	$ 4 930,83  
-Trucks count:	25	SL:	100,00%	Expenses:	\$ 501 924,77	Expenses/SL:	$ 5 019,25  
+> Scenario        Trucks count    SL      Expenses        Expenses/SL
+scenario1.1.json        2       0,69%   $ 112 055,08    $ 162 683,60
+Scenario        Trucks count    SL      Expenses        Expenses/SL
+scenario1.2.json        4       66,65%  $ 169 545,00    $ 2 543,97
+Scenario        Trucks count    SL      Expenses        Expenses/SL
+scenario1.3.json        6       86,05%  $ 201 655,00    $ 2 343,60
+Scenario        Trucks count    SL      Expenses        Expenses/SL
+scenario2.json  2       0,44%   $ 111 904,34    $ 255 461,63
+Scenario        Trucks count    SL      Expenses        Expenses/SL
+scenario3.json  3       56,45%  $ 128 115,00    $ 2 269,71
+Scenario        Trucks count    SL      Expenses        Expenses/SL
+scenario4.json  18      0,43%   $ 77 588,13     $ 181 556,22

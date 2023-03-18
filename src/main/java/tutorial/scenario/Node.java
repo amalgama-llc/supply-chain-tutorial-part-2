@@ -1,19 +1,26 @@
 package tutorial.scenario;
 
 public class Node {
-  private final double latitude;
-  private final double longitude;
 
-  public Node(double latitude, double longitude) {
-    this.latitude = latitude;
-    this.longitude = longitude;
+  private final double y;
+  private final double x;
+  private final int id;
+
+  public Node(int id, double y, double x) {
+    this.y = y;
+    this.x = x;
+    this.id = id;
   }
 
-  public double getLatitude() {
-    return latitude;
+  public double getY() {
+    return y;
   }
 
-  public double getLongitude() {
-    return longitude;
+  public double getX() {
+    return x;
+  }
+
+  public int getId() {
+    return id;
   }
 }

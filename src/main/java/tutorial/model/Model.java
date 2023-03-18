@@ -22,17 +22,20 @@ import tutorial.Mapping;
 import java.util.stream.Collectors;
 
 public class Model extends com.amalgamasimulation.engine.Model {
+
   private final Scenario scenario;
   private final RandomGenerator randomGenerator = new DefaultRandomGenerator(1);
   private List<Truck> trucks = new ArrayList<>();
   private List<TransportationRequest> requests = new ArrayList<>();
   private Queue<TransportationRequest> waitingRequests = new LinkedList<>();
   private final Statistics statistics;
+
   private GraphEnvironment<Node, Arc, Truck> graphEnvironment = new GraphEnvironment<>();
-  private Node homeNode;
   private Mapping mapping = new Mapping();
+  private List<Arc> arcs = new ArrayList<>();
   private List<Warehouse> warehouses = new ArrayList<>();
   private List<Store> stores = new ArrayList<>();
+  private final Dispatcher dispatcher;
 
   public Model(Engine engine, Scenario scenario) {
     super(engine);
@@ -40,15 +43,19 @@ public class Model extends com.amalgamasimulation.engine.Model {
     engine.scheduleStop(engine.dateToTime(scenario.getSimulationEndDt()), "Stop");
     this.scenario = scenario;
 
-    RealDistribution newRequestIntervalDistribution = new ExponentialDistribution(randomGenerator, scenario.getIntervalBetweenRequests());
-    RequestGenerator requestGenerator = new RequestGenerator(engine, this, newRequestIntervalDistribution, scenario.getMaxDeliveryTimeHrs());
+    RealDistribution newRequestIntervalDistribution = new ExponentialDistribution(randomGenerator,
+        scenario.getIntervalBetweenRequestsHrs());
+    RequestGenerator requestGenerator = new RequestGenerator(engine, this,
+        newRequestIntervalDistribution,
+        scenario.getMaxDeliveryTimeHrs());
 
     initializeModelObjects();
+
     requestGenerator.addNewRequestHandler(this::addRequest);
 
-    Dispatcher dispatcher = new Dispatcher(engine, this);
+    requestGenerator.addNewRequestHandler(this::addRequest);
+    this.dispatcher = new Dispatcher(engine, this);
     requestGenerator.addNewRequestHandler(dispatcher::onNewRequest);
-
     this.statistics = new Statistics(engine, this);
   }
 
@@ -83,51 +90,56 @@ public class Model extends com.amalgamasimulation.engine.Model {
   }
 
   private void initializeTrucks() {
-    for (int i = 0; i < scenario.getTruckCount(); i++) {
-      Truck truck = new Truck(String.valueOf(i + 1), String.valueOf(i + 1), scenario.getTruckSpeed(), engine());
+    for (tutorial.scenario.Truck scenarioTruck : scenario.getTrucks()) {
+      Truck truck = new Truck(scenarioTruck.getId(), scenarioTruck.getName(),
+          scenario.getTruckSpeed(), engine());
       truck.setGraphEnvironment(graphEnvironment);
+      Node homeNode = mapping.nodesMap.get(scenarioTruck.getInitialNode());
       truck.jumpTo(homeNode);
       trucks.add(truck);
     }
   }
 
-  public Statistics getStatistics() {
-    return statistics;
-  }
-
   private void initializeGraph() {
-    for (var scenarioNode : scenario.getNodes()) {
-      var modelNode = new tutorial.model.Node(new Point(scenarioNode.getLongitude(), scenarioNode.getLatitude()));
-      mapping.nodesMap.put(scenarioNode, modelNode);
-      graphEnvironment.addNode(modelNode);
-      homeNode = modelNode;
+    for (int i = 0; i < scenario.getNodes().size(); i++) {
+      Node node = new Node(
+          new Point(scenario.getNodes().get(i).getX(), scenario.getNodes().get(i).getY()));
+      graphEnvironment.addNode(node);
+      mapping.nodesMap.put(scenario.getNodes().get(i), node);
     }
-
     for (var scenarioArc : scenario.getArcs()) {
-      Node sourceNode = mapping.nodesMap.get(scenarioArc.getSource());
-      Node destNode = mapping.nodesMap.get(scenarioArc.getDest());
-      Polyline arcPolyline = createPolyline(scenarioArc);
-      Arc forwardArc = new Arc(arcPolyline);
-      Arc backwardArc = new Arc(arcPolyline.getReversed());
-      forwardArc.setReverseArc(backwardArc);
-      backwardArc.setReverseArc(forwardArc);
-      graphEnvironment.addArc(sourceNode, destNode, forwardArc, backwardArc);
+      Polyline polyline = createPolyline(scenarioArc);
+      if (polyline.getLength() != 0) {
+        Node sourceNode = mapping.nodesMap.get(scenarioArc.getSource());
+        Node destNode = mapping.nodesMap.get(scenarioArc.getDest());
+
+        Arc forwardArc = new Arc(polyline);
+        Arc backwardArc = new Arc(polyline.getReversed());
+
+        forwardArc.setReverseArc(backwardArc);
+        backwardArc.setReverseArc(forwardArc);
+        graphEnvironment.addArc(sourceNode, destNode, forwardArc, backwardArc);
+        mapping.arcsMap.put(scenarioArc, forwardArc);
+        this.arcs.add(forwardArc);
+        this.arcs.add(backwardArc);
+      }
     }
   }
 
   private Polyline createPolyline(tutorial.scenario.Arc scenarioArc) {
     List<Point> points = new ArrayList<>();
-    points.add(new Point(scenarioArc.getSource().getLongitude(), scenarioArc.getSource().getLatitude()));
+    points.add(new Point(scenarioArc.getSource().getX(), scenarioArc.getSource().getY()));
     for (tutorial.scenario.Point bendpoint : scenarioArc.getPoints()) {
       points.add(new Point(bendpoint.getLongitude(), bendpoint.getLatitude()));
     }
-    points.add(new Point(scenarioArc.getDest().getLongitude(), scenarioArc.getDest().getLatitude()));
-    return new Polyline(points.stream().distinct().collect(Collectors.toList()));
+    points.add(new Point(scenarioArc.getDest().getX(), scenarioArc.getDest().getY()));
+    return new Polyline(points.stream().distinct().toList());
   }
 
   private void initializeAssets() {
     for (var scenarioWarehouse : scenario.getWarehouses()) {
-      warehouses.add(new Warehouse(mapping.nodesMap.get(scenarioWarehouse.getNode()), scenarioWarehouse.getName()));
+      warehouses.add(new Warehouse(mapping.nodesMap.get(scenarioWarehouse.getNode()),
+          scenarioWarehouse.getName()));
     }
     for (var scenarioStore : scenario.getStores()) {
       stores.add(new Store(mapping.nodesMap.get(scenarioStore.getNode()), scenarioStore.getName()));
@@ -140,5 +152,9 @@ public class Model extends com.amalgamasimulation.engine.Model {
 
   public List<Store> getStores() {
     return stores;
+  }
+
+  public Statistics getStatistics() {
+    return statistics;
   }
 }

@@ -4,6 +4,7 @@ import com.amalgamasimulation.engine.Engine;
 import com.amalgamasimulation.utils.Utils;
 
 public class Statistics {
+
   private final Engine engine;
   private final Model model;
 
