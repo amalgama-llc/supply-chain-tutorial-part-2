@@ -24,7 +24,6 @@ public class ScenarioParser {
     LocalDateTime beginDate = parseLocalDateTime(jsonScenario, "beginDate");
     LocalDateTime endDate = parseLocalDateTime(jsonScenario, "endDate");
 
-    double truckSpeed = parseDouble(jsonScenario, "truckSpeed");
     int intervalBetweenRequestHrs = parseInt(jsonScenario, "intervalBetweenRequestHrs");
     int maxDeliveryTimeHrs = parseInt(jsonScenario, "maxDeliveryTimeHrs");
 
@@ -67,7 +66,7 @@ public class ScenarioParser {
 
     jsonScenario.getJSONArray("trucks").forEach(elem -> {
       JSONObject json = (JSONObject) elem;
-      trucks.add(new Truck(parseInt(json, ID), parseString(json, NAME), parseNode(nodes, json)));
+      trucks.add(new Truck(parseInt(json, ID), parseString(json, NAME), parseDouble(json, "speed"), parseNode(nodes, json)));
     });
 
     jsonScenario.getJSONArray("warehouses").forEach(elem -> {
@@ -81,7 +80,7 @@ public class ScenarioParser {
       stores.add(new Store(parseInt(json, ID), parseString(json, NAME), parseNode(nodes, json)));
     });
 
-    return new Scenario(trucks, truckSpeed, intervalBetweenRequestHrs, maxDeliveryTimeHrs,
+    return new Scenario(trucks, intervalBetweenRequestHrs, maxDeliveryTimeHrs,
         nodes.values().stream().toList(), arcs, warehouses, stores, beginDate, endDate);
   }
 

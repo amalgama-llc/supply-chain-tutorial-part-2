@@ -1,12 +1,11 @@
 {
   "beginDate": "2023-02-02",
   "endDate": "2023-04-10",
-  "truckSpeed": 40.0,
   "intervalBetweenRequestHrs": 1,
   "maxDeliveryTimeHrs": 2,
   "trucks": [
-    { "id": 1, "name": "Truck 1", "node": 3 },
-    { "id": 2, "name": "Truck 2", "node": 4 }
+    { "id": 1, "name": "Truck 1", "speed": 40.0, "node": 3 },
+    { "id": 2, "name": "Truck 2", "speed": 40.0, "node": 4 }
   ],
   "nodes": [
     {

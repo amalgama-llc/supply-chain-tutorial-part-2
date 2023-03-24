@@ -92,7 +92,7 @@ public class Model extends com.amalgamasimulation.engine.Model {
   private void initializeTrucks() {
     for (tutorial.scenario.Truck scenarioTruck : scenario.getTrucks()) {
       Truck truck = new Truck(scenarioTruck.getId(), scenarioTruck.getName(),
-          scenario.getTruckSpeed(), engine());
+          scenarioTruck.getSpeed(), engine());
       truck.setGraphEnvironment(graphEnvironment);
       Node homeNode = mapping.nodesMap.get(scenarioTruck.getInitialNode());
       truck.jumpTo(homeNode);

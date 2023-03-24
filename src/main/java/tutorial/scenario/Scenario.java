@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Scenario {
 
-  private final double truckSpeed;
   private final double intervalBetweenRequestsHrs;
   private final double maxDeliveryTimeHrs;
   private final LocalDateTime simulationStartDt;
@@ -17,14 +16,12 @@ public class Scenario {
   private final List<Truck> trucks;
 
   public Scenario(List<Truck> trucks,
-      double truckSpeed,
       double intervalBetweenRequestsHrs,
       double maxDeliveryTimeHrs,
       List<Node> nodes, List<Arc> arcs,
       List<Warehouse> warehouses, List<Store> stores,
       LocalDateTime simulationStartDt, LocalDateTime simulationEndDt) {
     this.trucks = trucks;
-    this.truckSpeed = truckSpeed;
     this.intervalBetweenRequestsHrs = intervalBetweenRequestsHrs;
     this.maxDeliveryTimeHrs = maxDeliveryTimeHrs;
     this.simulationStartDt = simulationStartDt;
@@ -33,10 +30,6 @@ public class Scenario {
     this.arcs = arcs;
     this.warehouses = warehouses;
     this.stores = stores;
-  }
-
-  public double getTruckSpeed() {
-    return truckSpeed;
   }
 
   public double getIntervalBetweenRequestsHrs() {

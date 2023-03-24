@@ -18,7 +18,7 @@ public class Main {
   public static void main(String[] args) {
     ScenarioParser parser = new ScenarioParser();
     File folder = new File(SCENARIOS_PATH);
-	System.out.println("Scenario\tTrucks count\tSL\tExpenses\tExpenses/SL");
+	System.out.println("Scenario            \tTrucks count\tSL\tExpenses\tExpenses/SL");
     for (File file : folder.listFiles()) {
       JSONObject jsonScenario = null;
       try {
@@ -43,7 +43,7 @@ public class Main {
     ExperimentRun experiment = new ExperimentRun(scenario, new Engine());
     experiment.run();
     Statistics statistics = experiment.getStatistics();
-    System.out.println("%s\t%s\t%s\t%s\t%s".formatted(scenarioName, scenario.getTrucks().size(),
+    System.out.println("%-20s\t%12s\t%s\t%s\t%s".formatted(scenarioName, scenario.getTrucks().size(),
         Formats.getDefaultFormats().percentTwoDecimals(statistics.getServiceLevel()),
         Formats.getDefaultFormats().dollarTwoDecimals(statistics.getExpenses()),
         Formats.getDefaultFormats().dollarTwoDecimals(statistics.getExpensesPerServiceLevelPercent())));
