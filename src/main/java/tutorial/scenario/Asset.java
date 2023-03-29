@@ -2,11 +2,11 @@ package tutorial.scenario;
 
 public abstract class Asset {
 
-  private final int id;
+  private final String id;
   private final String name;
   private final Node node;
 
-  protected Asset(int id, String name, Node node) {
+  protected Asset(String id, String name, Node node) {
     this.id = id;
     this.name = name;
     this.node = node;
@@ -20,7 +20,7 @@ public abstract class Asset {
     return node;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 }

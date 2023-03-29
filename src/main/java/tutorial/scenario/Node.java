@@ -4,9 +4,9 @@ public class Node {
 
   private final double y;
   private final double x;
-  private final int id;
+  private final String id;
 
-  public Node(int id, double y, double x) {
+  public Node(String id, double y, double x) {
     this.y = y;
     this.x = x;
     this.id = id;
@@ -20,7 +20,7 @@ public class Node {
     return x;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 }

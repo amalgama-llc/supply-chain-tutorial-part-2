@@ -27,7 +27,7 @@ public class ScenarioParser {
     int intervalBetweenRequestHrs = parseInt(jsonScenario, "intervalBetweenRequestHrs");
     int maxDeliveryTimeHrs = parseInt(jsonScenario, "maxDeliveryTimeHrs");
 
-    Map<Integer, Node> nodes = new HashMap<>();
+    Map<String, Node> nodes = new HashMap<>();
 
     List<Truck> trucks = new ArrayList<>();
     List<Arc> arcs = new ArrayList<>();
@@ -36,15 +36,15 @@ public class ScenarioParser {
 
     jsonScenario.getJSONArray("nodes").forEach(elem -> {
       JSONObject json = (JSONObject) elem;
-      int id = parseInt(json, ID);
+      String id = parseString(json, ID);
       nodes.put(id,
           new Node(id, parseDouble(json, COORDINATES_Y), parseDouble(json, COORDINATES_X)));
     });
 
     jsonScenario.getJSONArray("arcs").forEach(elem -> {
       JSONObject json = (JSONObject) elem;
-      Node source = nodes.get(parseInt(json, SOURCE));
-      Node dest = nodes.get(parseInt(json, DESTINATION));
+      Node source = nodes.get(parseString(json, SOURCE));
+      Node dest = nodes.get(parseString(json, DESTINATION));
       if (Objects.isNull(source)) {
         String message = "Node with id '" + json.getInt("source") + "' does not exist.\n";
         System.err.println(message);
@@ -66,18 +66,18 @@ public class ScenarioParser {
 
     jsonScenario.getJSONArray("trucks").forEach(elem -> {
       JSONObject json = (JSONObject) elem;
-      trucks.add(new Truck(parseInt(json, ID), parseString(json, NAME), parseDouble(json, "speed"), parseNode(nodes, json)));
+      trucks.add(new Truck(parseString(json, ID), parseString(json, NAME), parseDouble(json, "speed"), parseNode(nodes, json)));
     });
 
     jsonScenario.getJSONArray("warehouses").forEach(elem -> {
       JSONObject json = (JSONObject) elem;
       warehouses.add(
-          new Warehouse(parseInt(json, ID), parseString(json, NAME), parseNode(nodes, json)));
+          new Warehouse(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json)));
     });
 
     jsonScenario.getJSONArray("stores").forEach(elem -> {
       JSONObject json = (JSONObject) elem;
-      stores.add(new Store(parseInt(json, ID), parseString(json, NAME), parseNode(nodes, json)));
+      stores.add(new Store(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json)));
     });
 
     return new Scenario(trucks, intervalBetweenRequestHrs, maxDeliveryTimeHrs,
@@ -89,8 +89,8 @@ public class ScenarioParser {
     return beginDate;
   }
 
-  private Node parseNode(Map<Integer, Node> nodes, JSONObject object) {
-    Node node = nodes.get(object.getInt("node"));
+  private Node parseNode(Map<String, Node> nodes, JSONObject object) {
+    Node node = nodes.get(object.getString("node"));
     if (Objects.nonNull(node)) {
       return node;
     } else {

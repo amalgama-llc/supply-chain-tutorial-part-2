@@ -15,7 +15,7 @@ public class Truck extends GraphAgent<Node, Arc> {
   private final double OWNERSHIP_COST_PER_HOUR = 10;
   private final double USAGE_COST_PER_HOUR = 25;
 
-  private final int id;
+  private final String id;
   private final String name;
   private final double speed;
   private List<Pair<Double, Double>> activePeriods = new ArrayList<>();
@@ -25,14 +25,14 @@ public class Truck extends GraphAgent<Node, Arc> {
 
   private BiConsumer<Truck, GraphAgentPosition<Node, Arc>> destinationReachedHandler;
 
-  public Truck(int id, String name, double speed, Engine engine) {
+  public Truck(String id, String name, double speed, Engine engine) {
     super(engine);
     this.id = id;
     this.name = name;
     this.speed = speed;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
