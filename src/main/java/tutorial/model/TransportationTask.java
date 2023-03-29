@@ -13,6 +13,7 @@ public class TransportationTask {
   private final Engine engine;
 
   private double beginTime;
+  private boolean movingWithCargo;
 
   public TransportationTask(String id, Truck truck, TransportationRequest request,
       Consumer<Truck> truckReleaseHandler, Engine engine) {
@@ -44,11 +45,16 @@ public class TransportationTask {
     truck.onTaskStarted(this, this::onDestinationReached);
     truck.moveTo(request.getSourceAsset().getNode(), truck.getSpeed());
   }
+  
+  public boolean isMovingWithCargo() {
+	  return movingWithCargo;
+  }
 
   private void onDestinationReached(Truck truck, GraphAgentPosition<Node, Arc> destPosition) {
     boolean truckIsAtSourceNode = destPosition.getNode().getValue()
         .equals(request.getSourceAsset().getNode());
     if (truckIsAtSourceNode) {
+      movingWithCargo = true;
       truck.moveTo(request.getDestAsset().getNode(), truck.getSpeed());
     } else {
       truck.onTaskCompleted();
