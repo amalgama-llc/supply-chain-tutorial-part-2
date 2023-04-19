@@ -11,8 +11,17 @@ Trucks move within a road network.
 
 1. Make sure that JDK-17+ and Maven 3.8.1+ are installed on your computer.
 1. Clone the repository to your local machine.
-1. Build the application: `mvn clean package`.
-1. Start the console application: `java -jar target/tutorial-step-2-1.0.jar`.
+1. Build the application: 
+
+```
+mvn clean package
+```
+
+4. Start the console application: 
+
+```
+java -jar target/tutorial-step-2-1.0.jar
+```
 
 This gets printed to the console:
 
