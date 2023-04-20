@@ -1,7 +1,7 @@
-# Step 2: Adding Road Network
+# Part 2: Adding Road Network
 
 ## About
-This repository contains the source code for the [Step 2 in the Amalgama Platform tutorial](https://platform.amalgamasimulation.com/amalgama/SupplyChainTutorial/platform_tutorial_step_2.html).
+This repository contains the source code for the [Part 2 of the Supply Chain Tutorial](https://platform.amalgamasimulation.com/amalgama/SupplyChainTutorial/sc_tutorial_part_2.html).
 
 The application simulates the functionality of a simple supply chain.
 A set of experiments is run to find the optimal number of trucks to move cargo among warehouses and stores.
@@ -20,7 +20,7 @@ mvn clean package
 4. Start the console application: 
 
 ```
-java -jar target/tutorial-step-2-1.0.jar
+java -jar target/sc-tutorial-part-2-1.0.jar
 ```
 
 This gets printed to the console:

@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.amalgamasimulation</groupId>
-  <artifactId>tutorial-step-2</artifactId>
+  <artifactId>sc-tutorial-part-2</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>tutorial-step-2</name>
-  <url>https://platform.amalgamasimulation.com/amalgama/SupplyChainTutorial/platform_tutorial_step_2.html</url>
+  <name>sc-tutorial-part-2</name>
+  <url>https://platform.amalgamasimulation.com/amalgama/SupplyChainTutorial/sc_tutorial_part_2.html</url>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
