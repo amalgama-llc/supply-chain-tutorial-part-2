@@ -16,8 +16,6 @@ public class ScenarioParser {
 	private static final String COORDINATES_Y = "y";
 	private static final String COORDINATES_X = "x";
 	private static final String NAME = "name";
-	private static final String SOURCE = "source";
-	private static final String DESTINATION = "dest";
 
 	public Scenario parseScenario(JSONObject jsonScenario) {
 
@@ -42,21 +40,10 @@ public class ScenarioParser {
 
 		jsonScenario.getJSONArray("arcs").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			Node source = nodes.get(parseString(json, SOURCE));
-			Node dest = nodes.get(parseString(json, DESTINATION));
-			if (Objects.isNull(source)) {
-				String message = "Node with id '" + json.getString("source") + "' does not exist.\n";
-				System.err.println(message);
-				throw new RuntimeException(message);
-			}
-			if (Objects.isNull(dest)) {
-				String message = "Node with id '" + json.getString("dest") + "' does not exist.\n";
-				System.err.println(message);
-				throw new RuntimeException(message);
-			}
+			Node source = parseNode(nodes, json, "source");
+			Node dest = parseNode(nodes, json, "dest");
 			if (source.equals(dest)) {
-				String message = "Arc source '" + json.getString("source") + "' and Arc destination '"
-						+ json.getString("dest") + "' should be different Nodes.\n";
+				String message = "Arc source and destination should be different Nodes.\n";
 				System.err.println(message);
 				throw new RuntimeException(message);
 			}
@@ -65,34 +52,34 @@ public class ScenarioParser {
 
 		jsonScenario.getJSONArray("trucks").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			trucks.add(new Truck(parseString(json, ID), parseString(json, NAME), parseDouble(json, "speed"), parseNode(nodes, json)));
+			trucks.add(new Truck(parseString(json, ID), parseString(json, NAME), parseDouble(json, "speed"), parseNode(nodes, json, "initialNode")));
 		});
 
 		jsonScenario.getJSONArray("warehouses").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			warehouses.add(new Warehouse(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json)));
+			warehouses.add(new Warehouse(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json, "node")));
 		});
 
 		jsonScenario.getJSONArray("stores").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			stores.add(new Store(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json)));
+			stores.add(new Store(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json, "node")));
 		});
 
 		return new Scenario(trucks, intervalBetweenRequestHrs, maxDeliveryTimeHrs,
 				nodes.values().stream().toList(), arcs, warehouses, stores, beginDate, endDate);
 	}
 
-	private LocalDateTime parseLocalDateTime(JSONObject jsonScenario, String str) {
-		LocalDateTime beginDate = LocalDate.parse(jsonScenario.getString(str)).atStartOfDay();
-		return beginDate;
+	private static LocalDateTime parseLocalDateTime(JSONObject jsonScenario, String str) {
+		return LocalDateTime.parse(jsonScenario.getString(str));
 	}
 
-	private Node parseNode(Map<String, Node> nodes, JSONObject object) {
-		Node node = nodes.get(object.getString("node"));
+	private static Node parseNode(Map<String, Node> nodes, JSONObject object, String nodeFieldName) {
+		String nodeFieldValue = object.getString(nodeFieldName);
+		Node node = nodes.get(nodeFieldValue);
 		if (Objects.nonNull(node)) {
 			return node;
 		} else {
-			String message = "Node with id '" + object.getString("node") + "' does not exist.\n";
+			String message = "Node with id '" + nodeFieldValue + "' does not exist.\n";
 			System.err.println(message);
 			throw new RuntimeException(message);
 		}
