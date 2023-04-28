@@ -8,8 +8,8 @@ public class Scenario {
 	private final double maxDeliveryTimeHrs;
 	private final List<Warehouse> warehouses;
 	private final List<Store> stores;
-	private final LocalDateTime simulationStartDt;
-	private final LocalDateTime simulationEndDt; 
+	private final LocalDateTime beginDate;
+	private final LocalDateTime endDate; 
 	private final List<Truck> trucks;
 	private final List<Node> nodes;
 	private final List<Arc> arcs;
@@ -21,12 +21,12 @@ public class Scenario {
 					List<Arc> arcs,
 					List<Warehouse> warehouses, 
 					List<Store> stores,
-					LocalDateTime simulationStartDt, LocalDateTime simulationEndDt) {
+					LocalDateTime beginDate, LocalDateTime endDate) {
 		this.trucks = trucks;
 		this.intervalBetweenRequestsHrs = intervalBetweenRequestsHrs;
 		this.maxDeliveryTimeHrs = maxDeliveryTimeHrs;
-		this.simulationStartDt = simulationStartDt;
-		this.simulationEndDt = simulationEndDt;
+		this.beginDate = beginDate;
+		this.endDate = endDate;
 		this.nodes = nodes;
 		this.arcs = arcs;
 		this.warehouses = warehouses;
@@ -41,12 +41,12 @@ public class Scenario {
 		return maxDeliveryTimeHrs;
 	}
 	
-	public LocalDateTime getSimulationStartDt() {
-		return simulationStartDt;
+	public LocalDateTime getBeginDate() {
+		return beginDate;
 	}
 
-	public LocalDateTime getSimulationEndDt() {
-		return simulationEndDt;
+	public LocalDateTime getEndDate() {
+		return endDate;
 	}
 
 	public List<Warehouse> getWarehouses() {

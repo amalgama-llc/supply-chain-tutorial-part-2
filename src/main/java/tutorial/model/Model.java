@@ -37,8 +37,8 @@ public class Model extends com.amalgamasimulation.engine.Model {
 	
 	public Model(Engine engine, Scenario scenario) {
 		super(engine);
-		engine.setTemporal(scenario.getSimulationStartDt(), ChronoUnit.HOURS);
-		engine.scheduleStop(engine.dateToTime(scenario.getSimulationEndDt()), "Stop");
+		engine.setTemporal(scenario.getBeginDate(), ChronoUnit.HOURS);
+		engine.scheduleStop(engine.dateToTime(scenario.getEndDate()), "Stop");
 		this.scenario = scenario;
 
 		initializeModelObjects();
@@ -97,7 +97,7 @@ public class Model extends com.amalgamasimulation.engine.Model {
 	private Polyline createPolyline(tutorial.scenario.Arc scenarioArc) {
 		List<Point> points = new ArrayList<>();
 		points.add(new Point(scenarioArc.getSource().getX(), scenarioArc.getSource().getY()));
-		for (tutorial.scenario.Point bendpoint : scenarioArc.getPoints()) {
+		for (var bendpoint : scenarioArc.getPoints()) {
 			points.add(new Point(bendpoint.getLongitude(), bendpoint.getLatitude()));
 		}
 		points.add(new Point(scenarioArc.getDest().getX(), scenarioArc.getDest().getY()));
