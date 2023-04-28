@@ -39,7 +39,6 @@ public class TransportationTask {
 		return beginTime;
 	}
 
-	// tag::execute[]
 	public void execute() {
 		this.beginTime = model.engine().time();
 //		System.out.println("%.3f\tTask #%s : TRANSPORTATION_STARTED. Request #%s; Truck #%s; From %s -> To %s"
@@ -48,13 +47,11 @@ public class TransportationTask {
 		truck.onTaskStarted(this, this::onDestinationReached);
 		truck.moveTo(request.getSourceAsset().getNode(), truck.getSpeed());
 	}
-	// end::execute[]
 
 	public boolean isMovingWithCargo() {
 		return movingWithCargo;
 	}
 	
-	// tag::reached[]
 	private void onDestinationReached(Truck truck, GraphAgentPosition<Node, Arc> destPosition) {
 		boolean truckIsAtSourceNode = destPosition.getNode().getValue().equals(request.getSourceAsset().getNode());
 		if (truckIsAtSourceNode) {
@@ -67,5 +64,4 @@ public class TransportationTask {
 //			System.out.println("%.3f\tTask #%s : TRANSPORTATION_FINISHED".formatted(model.engine().time(), getId()));
 		}
 	}
-	// end::reached[]
 }
