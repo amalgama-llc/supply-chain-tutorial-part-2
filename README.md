@@ -27,6 +27,7 @@ This gets printed to the console:
 
 ```
 Scenario                Trucks count    SL      Expenses        Expenses/SL  
+scenario.json                      1    57,14%  $ 420,00        $ 7,35
 scenario1.1.json                   2    0,69%   $ 112 055,08    $ 162 683,60  
 scenario1.2.json                   4    66,65%  $ 169 545,00    $ 2 543,97  
 scenario1.3.json                   6    86,05%  $ 201 655,00    $ 2 343,60  

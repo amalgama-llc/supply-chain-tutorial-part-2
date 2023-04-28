@@ -71,7 +71,7 @@ public class Model extends com.amalgamasimulation.engine.Model {
 	private void initializeGraph() {
 		for (int i = 0; i < scenario.getNodes().size(); i++) {
 			var scenarioNode = scenario.getNodes().get(i);
-	        Node node = new Node(scenarioNode.getId(), new Point(scenarioNode.getX(), scenarioNode.getY()));
+	        Node node = new Node(new Point(scenarioNode.getX(), scenarioNode.getY()));
 	        graphEnvironment.addNode(node);
 	        mapping.nodesMap.put(scenarioNode, node);
 		}
@@ -87,7 +87,7 @@ public class Model extends com.amalgamasimulation.engine.Model {
 				forwardArc.setReverseArc(backwardArc);
 				backwardArc.setReverseArc(forwardArc);
 				graphEnvironment.addArc(sourceNode, destNode, forwardArc, backwardArc);
-				mapping.arcsMap.put(scenarioArc, forwardArc);
+				mapping.forwardArcsMap.put(scenarioArc, forwardArc);
 				this.arcs.add(forwardArc);
 				this.arcs.add(backwardArc);
 			}

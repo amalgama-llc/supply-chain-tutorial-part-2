@@ -42,8 +42,8 @@ public class TransportationTask {
 	// tag::execute[]
 	public void execute() {
 		this.beginTime = model.engine().time();
-//		System.out.println("%.3f\tTask #%s : TRANSPORTATION_STARTED. Request #%s; Truck #%s at %s; From %s -> To %s"
-//		.formatted(model.engine().time(), getId(), request.getId(), truck.getId(), truck.getCurrentNode().getValue().getId(), 
+//		System.out.println("%.3f\tTask #%s : TRANSPORTATION_STARTED. Request #%s; Truck #%s; From %s -> To %s"
+//		.formatted(model.engine().time(), getId(), request.getId(), truck.getId(), 
 //				request.getSourceAsset().getName(), request.getDestAsset().getName()));
 		truck.onTaskStarted(this, this::onDestinationReached);
 		truck.moveTo(request.getSourceAsset().getNode(), truck.getSpeed());
