@@ -108,12 +108,10 @@ public class Model extends com.amalgamasimulation.engine.Model {
 		for (var scenarioWarehouse : scenario.getWarehouses()) {
 			var wh = new Warehouse(mapping.nodesMap.get(scenarioWarehouse.getNode()), scenarioWarehouse.getName());
 			warehouses.add(wh);
-			mapping.assetsMap.put(scenarioWarehouse, wh);
 		}
 		for (var scenarioStore : scenario.getStores()) {
 			var store = new Store(mapping.nodesMap.get(scenarioStore.getNode()), scenarioStore.getName());
 			stores.add(store);
-			mapping.assetsMap.put(scenarioStore, store);
 		}
 	}
 	
