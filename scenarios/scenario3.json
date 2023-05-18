@@ -1,4 +1,5 @@
 {
+  "name": "scenario3",
   "beginDate": "2023-02-02T00:00:00",
   "endDate": "2023-04-10T00:00:00",
   "intervalBetweenRequestHrs": 1,
