@@ -1,13 +1,16 @@
 package tutorial.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 public class Dispatcher {
 	private final Model model;
 	private int lastTaskId = 0;
 	private List<TransportationTask> transportationTasks = new ArrayList<>();
+	private Queue<TransportationRequest> waitingRequests = new LinkedList<>();
 
 	public Dispatcher(Model model) {
 		this.model = model;
@@ -22,7 +25,7 @@ public class Dispatcher {
 		if (freeTruck.isPresent()) {
 			startTransportation(freeTruck.get(), newRequest);
 		} else {
-			model.addWaitingRequest(newRequest);
+			addWaitingRequest(newRequest);
 		}
 	}
 
@@ -33,9 +36,17 @@ public class Dispatcher {
 	}
 
 	private void onTruckRelease(Truck truck) {
-		TransportationRequest waitingRequest = model.getNextWaitingRequest();
+		TransportationRequest waitingRequest = getNextWaitingRequest();
 		if (waitingRequest != null) {
 			startTransportation(truck, waitingRequest);
 		}
+	}
+	
+	private TransportationRequest getNextWaitingRequest() {
+		return waitingRequests.poll();
+	}
+	
+	private void addWaitingRequest(TransportationRequest request) {
+		waitingRequests.add(request);
 	}
 }

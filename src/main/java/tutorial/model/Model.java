@@ -2,9 +2,7 @@ package tutorial.model;
 
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.RealDistribution;
@@ -28,7 +26,6 @@ public class Model extends com.amalgamasimulation.engine.Model {
 	private List<Store> stores = new ArrayList<>();
 	private List<Truck> trucks = new ArrayList<>();
 	private List<TransportationRequest> requests = new ArrayList<>();
-	private Queue<TransportationRequest> waitingRequests = new LinkedList<>();
 	private final Dispatcher dispatcher;
 	private final Statistics statistics;
 
@@ -143,11 +140,4 @@ public class Model extends com.amalgamasimulation.engine.Model {
 		requests.add(request);
 	}
 	
-	public TransportationRequest getNextWaitingRequest() {
-		return waitingRequests.poll();
-	}
-	
-	public void addWaitingRequest(TransportationRequest request) {
-		waitingRequests.add(request);
-	}
 }
