@@ -30,15 +30,15 @@ public class Dispatcher {
 	}
 
 	private void startTransportation(Truck truck, TransportationRequest request) {
-		TransportationTask task = new TransportationTask(String.valueOf(++lastTaskId), truck, request, this::onTruckRelease, model);
+		TransportationTask task = new TransportationTask(String.valueOf(++lastTaskId), truck, request, this::onTaskCompleted, model);
 		transportationTasks.add(task);
 		task.execute();
 	}
 
-	private void onTruckRelease(Truck truck) {
+	private void onTaskCompleted(TransportationTask task) {
 		TransportationRequest waitingRequest = getNextWaitingRequest();
 		if (waitingRequest != null) {
-			startTransportation(truck, waitingRequest);
+			startTransportation(task.getTruck(), waitingRequest);
 		}
 	}
 	
