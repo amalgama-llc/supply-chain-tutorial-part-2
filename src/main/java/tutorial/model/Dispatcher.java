@@ -5,12 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Consumer;
 
 public class Dispatcher {
 	private final Model model;
 	private int lastTaskId = 0;
 	private List<TransportationTask> transportationTasks = new ArrayList<>();
 	private Queue<TransportationRequest> waitingRequests = new LinkedList<>();
+	private List<Consumer<TransportationTask>> taskCompletedHandlers = new ArrayList<>();
 
 	public Dispatcher(Model model) {
 		this.model = model;
@@ -18,6 +20,10 @@ public class Dispatcher {
 
 	public List<TransportationTask> getTransportationTasks() {
 		return transportationTasks;
+	}
+	
+	public void addTaskCompletedHandler(Consumer<TransportationTask> handler) {
+		taskCompletedHandlers.add(handler);
 	}
 
 	public void onNewRequest(TransportationRequest newRequest) {
@@ -40,6 +46,7 @@ public class Dispatcher {
 		if (waitingRequest != null) {
 			startTransportation(task.getTruck(), waitingRequest);
 		}
+		taskCompletedHandlers.forEach(handler -> handler.accept(task));
 	}
 	
 	private TransportationRequest getNextWaitingRequest() {
