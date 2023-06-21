@@ -6,7 +6,7 @@ import com.amalgamasimulation.graphagent.GraphAgentPosition;
 
 public class TransportationTask {
 	private final String id;
-	private final Truck truck;
+	private Truck truck;
 	private final TransportationRequest request;
 	private final Consumer<TransportationTask> taskCompletedHandler;
 	private final Model model;
@@ -14,10 +14,9 @@ public class TransportationTask {
 	private double beginTime;
 	private boolean movingWithCargo;
 
-	public TransportationTask(String id, Truck truck, TransportationRequest request,
+	public TransportationTask(String id, TransportationRequest request,
 			Consumer<TransportationTask> taskCompletedHandler, Model model) {
 		this.id = id;
-		this.truck = truck;
 		this.request = request;
 		this.taskCompletedHandler = taskCompletedHandler;
 		this.model = model;
@@ -39,7 +38,8 @@ public class TransportationTask {
 		return beginTime;
 	}
 
-	public void execute() {
+	public void execute(Truck truck) {
+		this.truck = truck;
 		this.beginTime = model.engine().time();
 //		System.out.println("%.3f\tTask #%s : TRANSPORTATION_STARTED. Request #%s; Truck #%s; From %s -> To %s"
 //		.formatted(model.engine().time(), getId(), request.getId(), truck.getId(), 

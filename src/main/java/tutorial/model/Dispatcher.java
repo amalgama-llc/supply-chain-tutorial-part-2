@@ -11,8 +11,8 @@ public class Dispatcher {
 	private final Model model;
 	private int lastTaskId = 0;
 	private List<TransportationTask> transportationTasks = new ArrayList<>();
-	private Queue<TransportationRequest> waitingRequests = new LinkedList<>();
-	private List<Consumer<TransportationTask>> taskCompletedHandlers = new ArrayList<>();
+	private Queue<TransportationTask> waitingTasks = new LinkedList<>();
+	private List<Consumer<TransportationTask>> taskStateChangeHandlers = new ArrayList<>();
 
 	public Dispatcher(Model model) {
 		this.model = model;
@@ -22,38 +22,41 @@ public class Dispatcher {
 		return transportationTasks;
 	}
 	
-	public void addTaskCompletedHandler(Consumer<TransportationTask> handler) {
-		taskCompletedHandlers.add(handler);
+	public void addTaskStateChangeHandler(Consumer<TransportationTask> handler) {
+		taskStateChangeHandlers.add(handler);
 	}
 
 	public void onNewRequest(TransportationRequest newRequest) {
+		TransportationTask task = new TransportationTask(String.valueOf(++lastTaskId), newRequest, this::onTaskCompleted, model);
+		transportationTasks.add(task);
+		onTaskStateChanged(task);
 		Optional<Truck> freeTruck = model.getTrucks().stream().filter(Truck::isIdle).findFirst();
 		if (freeTruck.isPresent()) {
-			startTransportation(freeTruck.get(), newRequest);
+			task.execute(freeTruck.get());
+			onTaskStateChanged(task);
 		} else {
-			addWaitingRequest(newRequest);
+			addWaitingTask(task);
 		}
-	}
-
-	private void startTransportation(Truck truck, TransportationRequest request) {
-		TransportationTask task = new TransportationTask(String.valueOf(++lastTaskId), truck, request, this::onTaskCompleted, model);
-		transportationTasks.add(task);
-		task.execute();
 	}
 
 	private void onTaskCompleted(TransportationTask task) {
-		TransportationRequest waitingRequest = getNextWaitingRequest();
-		if (waitingRequest != null) {
-			startTransportation(task.getTruck(), waitingRequest);
+		onTaskStateChanged(task);
+		TransportationTask waitingTask = getNextWaitingTask();
+		if (waitingTask != null) {
+			waitingTask.execute(task.getTruck());
+			onTaskStateChanged(waitingTask);
 		}
-		taskCompletedHandlers.forEach(handler -> handler.accept(task));
 	}
 	
-	private TransportationRequest getNextWaitingRequest() {
-		return waitingRequests.poll();
+	private TransportationTask getNextWaitingTask() {
+		return waitingTasks.poll();
 	}
 	
-	private void addWaitingRequest(TransportationRequest request) {
-		waitingRequests.add(request);
+	private void addWaitingTask(TransportationTask task) {
+		waitingTasks.add(task);
+	}
+	
+	private void onTaskStateChanged(TransportationTask task) {
+		taskStateChangeHandlers.forEach(handler -> handler.accept(task));
 	}
 }
