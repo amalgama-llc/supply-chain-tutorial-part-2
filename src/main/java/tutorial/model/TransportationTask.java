@@ -5,6 +5,11 @@ import java.util.function.Consumer;
 import com.amalgamasimulation.graphagent.GraphAgentPosition;
 
 public class TransportationTask {
+	
+	public enum Status {
+		NOT_STARTED, IN_PROGRESS, COMPLETED_ON_TIME, COMPLETED_AFTER_DEADLINE;
+	}
+	
 	private final String id;
 	private Truck truck;
 	private final TransportationRequest request;
@@ -28,6 +33,16 @@ public class TransportationTask {
 
 	public Truck getTruck() {
 		return truck;
+	}
+
+	public Status getStatus() {
+		if (truck == null) {
+			return Status.NOT_STARTED;
+		}
+		if (request.isCompleted()) {
+			return request.getCompletedTime() <= request.getDeadlineTime() ? Status.COMPLETED_ON_TIME : Status.COMPLETED_AFTER_DEADLINE;
+		}
+		return Status.IN_PROGRESS;
 	}
 
 	public TransportationRequest getRequest() {
