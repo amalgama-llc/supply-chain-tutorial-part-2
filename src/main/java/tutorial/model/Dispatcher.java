@@ -25,7 +25,11 @@ public class Dispatcher {
 	public void addTaskStateChangeHandler(Consumer<TransportationTask> handler) {
 		taskStateChangeHandlers.add(handler);
 	}
-
+	
+	public void clearTaskStateChangeHandlers() {
+		taskStateChangeHandlers.clear();
+	}
+	
 	public void onNewRequest(TransportationRequest newRequest) {
 		TransportationTask task = new TransportationTask(String.valueOf(++lastTaskId), newRequest, this::onTaskCompleted, model);
 		transportationTasks.add(task);

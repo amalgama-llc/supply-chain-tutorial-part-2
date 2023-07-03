@@ -5,46 +5,55 @@
   "intervalBetweenRequestHrs": 0.5,
   "maxDeliveryTimeHrs": 6,
   "trucks": [
-    { "id": "truck-1", "name": "Truck 1", "speed": 40.0, "initialNode": "node3" }
+    {
+      "id": "truck-1",
+      "name": "Truck 1",
+      "speed": 40.0,
+      "initialNode": "node3"
+    }
   ],
   "nodes": [
     {
       "id": "node1",
-      "y": 0,
-      "x": 0
+      "x": 0,
+      "y": 0
     },
     {
       "id": "node2",
-      "y": 30,
-      "x": 0
+      "x": 0,
+      "y": 30
     },
     {
       "id": "node3",
-      "y": 30,
-      "x": 40
+      "x": 40,
+      "y": 30
     },
     {
       "id": "node4",
-      "y": 0,
-      "x": 40
+      "x": 40,
+      "y": 0
     }
   ],
   "arcs": [
     {
       "source": "node1",
-      "dest": "node3"
+      "dest": "node3",
+      "points": []
     },
     {
       "source": "node1",
-      "dest": "node4"
+      "dest": "node4",
+      "points": []
     },
     {
       "source": "node2",
-      "dest": "node3"
+      "dest": "node3",
+      "points": []
     },
     {
       "source": "node2",
-      "dest": "node4"
+      "dest": "node4",
+      "points": []
     }
   ],
   "warehouses": [
@@ -53,12 +62,12 @@
       "name": "Warehouse 1",
       "node": "node1"
     },
-	{
+    {
       "id": "wh2",
       "name": "Warehouse 2",
       "node": "node1"
     },
-	{
+    {
       "id": "wh3",
       "name": "Warehouse 3",
       "node": "node2"

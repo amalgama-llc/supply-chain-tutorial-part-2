@@ -34,7 +34,7 @@ public class TransportationTask {
 	public Truck getTruck() {
 		return truck;
 	}
-
+	
 	public Status getStatus() {
 		if (truck == null) {
 			return Status.NOT_STARTED;
@@ -44,7 +44,7 @@ public class TransportationTask {
 		}
 		return Status.IN_PROGRESS;
 	}
-
+	
 	public TransportationRequest getRequest() {
 		return request;
 	}

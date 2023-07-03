@@ -11,12 +11,7 @@ import org.json.JSONObject;
 
 public class ScenarioParser {
 
-	private static final String ID = "id";
-	private static final String COORDINATES_Y = "y";
-	private static final String COORDINATES_X = "x";
-	private static final String NAME = "name";
-
-	public Scenario parseScenario(JSONObject jsonScenario) {
+	public static Scenario parseScenario(JSONObject jsonScenario) {
 
 		LocalDateTime beginDate = parseLocalDateTime(jsonScenario, "beginDate");
 		LocalDateTime endDate = parseLocalDateTime(jsonScenario, "endDate");
@@ -33,8 +28,8 @@ public class ScenarioParser {
 
 		jsonScenario.getJSONArray("nodes").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			String id = parseString(json, ID);
-			nodes.put(id, new Node(id, parseDouble(json, COORDINATES_Y), parseDouble(json, COORDINATES_X)));
+			String id = parseString(json, "id");
+			nodes.put(id, new Node(id, parseDouble(json, "x"), parseDouble(json, "y")));
 		});
 
 		jsonScenario.getJSONArray("arcs").forEach(elem -> {
@@ -46,22 +41,27 @@ public class ScenarioParser {
 				System.err.println(message);
 				throw new RuntimeException(message);
 			}
-			arcs.add(new Arc(source, dest));
+			List<Point> points = new ArrayList<>();
+			json.getJSONArray("points").forEach(pointObj  -> {
+				JSONObject pointJson = (JSONObject) pointObj;
+				points.add(new Point(pointJson.getDouble("x"), pointJson.getDouble("y")));
+			});
+			arcs.add(new Arc(source, dest, points));
 		});
 
 		jsonScenario.getJSONArray("trucks").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			trucks.add(new Truck(parseString(json, ID), parseString(json, NAME), parseDouble(json, "speed"), parseNode(nodes, json, "initialNode")));
+			trucks.add(new Truck(parseString(json, "id"), parseString(json, "name"), parseDouble(json, "speed"), parseNode(nodes, json, "initialNode")));
 		});
 
 		jsonScenario.getJSONArray("warehouses").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			warehouses.add(new Warehouse(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json, "node")));
+			warehouses.add(new Warehouse(parseString(json, "id"), parseString(json, "name"), parseNode(nodes, json, "node")));
 		});
 
 		jsonScenario.getJSONArray("stores").forEach(elem -> {
 			JSONObject json = (JSONObject) elem;
-			stores.add(new Store(parseString(json, ID), parseString(json, NAME), parseNode(nodes, json, "node")));
+			stores.add(new Store(parseString(json, "id"), parseString(json, "name"), parseNode(nodes, json, "node")));
 		});
 
 		return new Scenario(trucks, intervalBetweenRequestHrs, maxDeliveryTimeHrs,
@@ -84,11 +84,11 @@ public class ScenarioParser {
 		}
 	}
 
-	private String parseString(JSONObject object, String str) {
+	private static String parseString(JSONObject object, String str) {
 		return object.getString(str);
 	}
 
-	private double parseDouble(JSONObject object, String str) {
+	private static double parseDouble(JSONObject object, String str) {
 		return object.getDouble(str);
 	}
 }

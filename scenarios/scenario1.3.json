@@ -5,51 +5,85 @@
   "intervalBetweenRequestHrs": 1,
   "maxDeliveryTimeHrs": 3,
   "trucks": [
-    { "id": "1", "name": "Truck 1", "speed": 40.0, "initialNode": "1" },
-    { "id": "2", "name": "Truck 2", "speed": 40.0, "initialNode": "1" },
-    { "id": "3", "name": "Truck 3", "speed": 40.0, "initialNode": "1" },
-    { "id": "4", "name": "Truck 4", "speed": 40.0, "initialNode": "1" },
-    { "id": "5", "name": "Truck 4", "speed": 40.0, "initialNode": "1" },
-    { "id": "6", "name": "Truck 4", "speed": 40.0, "initialNode": "1" }
+    {
+      "id": "1",
+      "name": "Truck 1",
+      "speed": 40.0,
+      "initialNode": "1"
+    },
+    {
+      "id": "2",
+      "name": "Truck 2",
+      "speed": 40.0,
+      "initialNode": "1"
+    },
+    {
+      "id": "3",
+      "name": "Truck 3",
+      "speed": 40.0,
+      "initialNode": "1"
+    },
+    {
+      "id": "4",
+      "name": "Truck 4",
+      "speed": 40.0,
+      "initialNode": "1"
+    },
+    {
+      "id": "5",
+      "name": "Truck 4",
+      "speed": 40.0,
+      "initialNode": "1"
+    },
+    {
+      "id": "6",
+      "name": "Truck 4",
+      "speed": 40.0,
+      "initialNode": "1"
+    }
   ],
   "nodes": [
     {
       "id": "1",
-      "y": 20,
-      "x": 20
+      "x": 20,
+      "y": 20
     },
     {
       "id": "2",
-      "y": -20,
-      "x": 20
+      "x": 20,
+      "y": -20
     },
     {
       "id": "3",
-      "y": -20,
-      "x": -20
+      "x": -20,
+      "y": -20
     },
     {
       "id": "4",
-      "y": 20,
-      "x": -20
+      "x": -20,
+      "y": 20
     }
   ],
   "arcs": [
     {
       "source": "1",
-      "dest": "2"
+      "dest": "2",
+      "points": []
     },
     {
       "source": "2",
-      "dest": "3"
+      "dest": "3",
+      "points": []
     },
     {
       "source": "3",
-      "dest": "4"
+      "dest": "4",
+      "points": []
     },
     {
       "source": "4",
-      "dest": "1"
+      "dest": "1",
+      "points": []
     }
   ],
   "warehouses": [

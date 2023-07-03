@@ -36,9 +36,9 @@ public class Main {
 	
 	static {
 		Node node1 = new Node("node1", 0, 0);
-		Node node2 = new Node("node2", 30, 0);
-		Node node3 = new Node("node3", 30, 40);
-		Node node4 = new Node("node4", 0, 40);
+		Node node2 = new Node("node2", 0, 30);
+		Node node3 = new Node("node3", 40, 30);
+		Node node4 = new Node("node4", 40, 0);
 		nodes = List.of(node1, node2, node3, node4);
 		Arc arc13 = new Arc(node1, node3);
 		Arc arc14 = new Arc(node1, node4);
@@ -109,7 +109,6 @@ public class Main {
 	}
 
 	private static void runScenariosFromFiles() {
-		ScenarioParser parser = new ScenarioParser();
 	    File folder = new File(SCENARIOS_PATH);
 	    for (File file : folder.listFiles()) {
 	        JSONObject jsonScenario = null;
@@ -120,7 +119,7 @@ public class Main {
 	        }
 	        if (Objects.nonNull(jsonScenario)) {
 	            try {
-	                Scenario scenario = parser.parseScenario(jsonScenario);
+	                Scenario scenario = ScenarioParser.parseScenario(jsonScenario);
 	                runExperimentWithStats(scenario, file.getName());
 	            } catch (Exception e) {
 	                System.err.printf("File '%s' contains error or has incorrect format\n", file.getName());

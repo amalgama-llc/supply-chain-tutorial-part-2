@@ -5,91 +5,111 @@
   "intervalBetweenRequestHrs": 1,
   "maxDeliveryTimeHrs": 2,
   "trucks": [
-    { "id": "1", "name": "Truck 1", "speed": 40.0, "initialNode": "3" },
-    { "id": "2", "name": "Truck 2", "speed": 40.0, "initialNode": "4" }
+    {
+      "id": "1",
+      "name": "Truck 1",
+      "speed": 40.0,
+      "initialNode": "3"
+    },
+    {
+      "id": "2",
+      "name": "Truck 2",
+      "speed": 40.0,
+      "initialNode": "4"
+    }
   ],
   "nodes": [
     {
       "id": "1",
-      "y": 20,
-      "x": 20
+      "x": 20,
+      "y": 20
     },
     {
       "id": "2",
-      "y": -20,
-      "x": 20
+      "x": 20,
+      "y": -20
     },
     {
       "id": "3",
-      "y": -20,
-      "x": -20
+      "x": -20,
+      "y": -20
     },
     {
       "id": "4",
-      "y": 20,
-      "x": -20
+      "x": -20,
+      "y": 20
     },
     {
       "id": "5",
-      "y": 30,
-      "x": 30
+      "x": 30,
+      "y": 30
     },
     {
       "id": "6",
-      "y": -30,
-      "x": 30
+      "x": 30,
+      "y": -30
     },
     {
       "id": "7",
-      "y": -30,
-      "x": -30
+      "x": -30,
+      "y": -30
     },
     {
       "id": "8",
-      "y": 30,
-      "x": -30
+      "x": -30,
+      "y": 30
     }
   ],
   "arcs": [
     {
       "source": "1",
-      "dest": "2"
+      "dest": "2",
+      "points": []
     },
     {
       "source": "2",
-      "dest": "3"
+      "dest": "3",
+      "points": []
     },
     {
       "source": "3",
-      "dest": "4"
+      "dest": "4",
+      "points": []
     },
     {
       "source": "4",
-      "dest": "1"
+      "dest": "1",
+      "points": []
     },
     {
       "source": "1",
-      "dest": "5"
+      "dest": "5",
+      "points": []
     },
     {
       "source": "2",
-      "dest": "6"
+      "dest": "6",
+      "points": []
     },
     {
       "source": "3",
-      "dest": "7"
+      "dest": "7",
+      "points": []
     },
     {
       "source": "4",
-      "dest": "8"
+      "dest": "8",
+      "points": []
     },
     {
       "source": "1",
-      "dest": "3"
+      "dest": "3",
+      "points": []
     },
     {
       "source": "2",
-      "dest": "4"
+      "dest": "4",
+      "points": []
     }
   ],
   "warehouses": [

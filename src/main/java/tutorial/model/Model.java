@@ -68,7 +68,7 @@ public class Model extends com.amalgamasimulation.engine.Model {
 	private void initializeGraph() {
 		for (int i = 0; i < scenario.getNodes().size(); i++) {
 			var scenarioNode = scenario.getNodes().get(i);
-	        Node node = new Node(new Point(scenarioNode.getX(), scenarioNode.getY()));
+	        Node node = new Node(new Point(scenarioNode.x(), scenarioNode.y()));
 	        graphEnvironment.addNode(node);
 	        mapping.nodesMap.put(scenarioNode, node);
 		}
@@ -93,11 +93,11 @@ public class Model extends com.amalgamasimulation.engine.Model {
 	
 	private Polyline createPolyline(tutorial.scenario.Arc scenarioArc) {
 		List<Point> points = new ArrayList<>();
-		points.add(new Point(scenarioArc.getSource().getX(), scenarioArc.getSource().getY()));
+		points.add(new Point(scenarioArc.getSource().x(), scenarioArc.getSource().y()));
 		for (var bendpoint : scenarioArc.getPoints()) {
-			points.add(new Point(bendpoint.getLongitude(), bendpoint.getLatitude()));
+			points.add(new Point(bendpoint.x(), bendpoint.y()));
 		}
-		points.add(new Point(scenarioArc.getDest().getX(), scenarioArc.getDest().getY()));
+		points.add(new Point(scenarioArc.getDest().x(), scenarioArc.getDest().y()));
 		return new Polyline(points.stream().distinct().toList());
 	}
 
