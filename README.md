@@ -1,7 +1,7 @@
 # Part 2: Adding Road Network
 
 ## About
-This repository contains the source code for the [Part 2 of the Supply Chain Tutorial](https://platform.amalgamasimulation.com/amalgama/SupplyChainTutorial/sc_tutorial_part_2.html).
+This repository contains the source code for the [Part 2 of the Supply Chain Tutorial](https://platform.amalgamasimulation.com/amalgama/SupplyChainTutorial/part2/sc_tutorial_part_2.html).
 
 The application simulates the functionality of a simple supply chain.
 A set of experiments is run to find the optimal number of trucks to move cargo among warehouses and stores.
